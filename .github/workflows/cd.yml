@@ -10,11 +10,6 @@ jobs:
       SERVICE_NAME: helloworld-a
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
 
 
       - name: Loop over each image line and run jq
