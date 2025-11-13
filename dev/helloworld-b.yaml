@@ -1,4 +1,4 @@
-name: helloworld-a
+name: helloworld-b
 service:
   image: bdobay/helloworld-b:latest
   resources:
