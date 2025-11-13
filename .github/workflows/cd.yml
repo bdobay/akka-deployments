@@ -14,6 +14,8 @@ jobs:
 
       - name: Loop over each image line and run jq
         run: |
+          pwd
+          ls
           while IFS= read -r line; do
             echo "Processing: $line"
             
