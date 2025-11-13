@@ -25,9 +25,8 @@ jobs:
 
             echo "Name: $name"
             echo "Tag: $tag"
-            yq eval ".service.image |= sub(\":[^:]+$\", \":${tag}\")" -i ${name}.yaml
-          done < /dev/versions.yaml
-          cat dev/helloworld-a.yaml
-          cat dev/helloworld-b.yaml
+            yq eval ".service.image |= sub(\":[^:]+$\", \":${tag}\")" -i ./dev/${name}.yaml
+            cat ./dev/${name}.yaml
+          done < ./dev/versions.yaml
           
 
