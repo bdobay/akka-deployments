@@ -1,0 +1,6 @@
+name: helloworld-a
+service:
+  image: bdobay/helloworld-b:latest
+  resources:
+    runtime:
+      mode: embedded
