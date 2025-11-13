@@ -11,11 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-
-      - name: Loop over each image line and run jq
+      - name: Install Akka CLI
         run: |
-          pwd
-          ls
+          wget https://doc.akka.io/install-cli.sh
+          chmod +x install-cli.sh
+          ./install-cli.sh --yes --verbose
+          akka version
+          akka config set refresh-token ${{ secrets.AKKA_TOKEN }} --host api.kalix.dev
+          akka config set project ${{ secrets.AKKA_PROJECT }} --host api.kalix.dev
+          akka services list --host api.kalix.dev
+          
+
+      - name: Loop over each image line and run yq
+        run: |
           while IFS= read -r line; do
             echo "Processing: $line"
             
@@ -27,6 +35,7 @@ jobs:
             echo "Tag: $tag"
             yq eval ".service.image |= sub(\":[^:]+$\", \":${tag}\")" -i ./dev/${name}.yaml
             cat ./dev/${name}.yaml
+            akka service apply -f ./dev/${name}.yaml --host api.kalix.dev
           done < ./dev/versions.yaml
           
 
