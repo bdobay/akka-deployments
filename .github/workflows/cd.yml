@@ -33,9 +33,9 @@ jobs:
 
             echo "Name: $name"
             echo "Tag: $tag"
-            yq eval ".service.image |= sub(\":[^:]+$\", \":${tag}\")" -i ./dev/${name}.yaml
-            cat ./dev/${name}.yaml
-            akka service apply -f ./dev/${name}.yaml --host api.kalix.dev
+            yq eval ".service.image |= sub(\":[^:]+$\", \":${tag}\")" -i ./dev/manifests/${name}.yaml
+            cat ./dev/manifests/${name}.yaml
+            akka service apply -f ./dev/manifests/${name}.yaml --host api.kalix.dev
           done < ./dev/versions.yaml
           
 
